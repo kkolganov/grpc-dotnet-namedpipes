@@ -57,7 +57,7 @@ namespace GrpcDotNetNamedPipes
             _pool.Dispose();
         }
 
-        private async Task HandleConnection(NamedPipeServerStream pipeStream)
+        protected virtual async Task HandleConnection(NamedPipeServerStream pipeStream)
         {
             var ctx = new ServerConnectionContext(pipeStream, _methodHandlers);
             await Task.Run(new PipeReader(pipeStream, ctx, ctx.Dispose).ReadLoop);
